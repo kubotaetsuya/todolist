@@ -32,6 +32,8 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::table('folders', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }

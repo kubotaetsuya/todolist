@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Http\Requests\CreateTask;
 use Illuminate\Http\Request;
 use App\Http\Requests\EditTask;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -17,6 +18,9 @@ class TaskController extends Controller
     
         // 選ばれたフォルダを取得する
         $current_folder = Folder::find($id);
+        if (is_null($current_folder)) {
+            abort(404);
+        }
     
         // 選ばれたフォルダに紐づくタスクを取得する
         $tasks = $current_folder->tasks()->get();
